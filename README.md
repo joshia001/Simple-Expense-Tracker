@@ -13,7 +13,8 @@ A simple command-line interface app to track daily expenses.
 ### Navigate into the project:
 ```cd expense-tracker-project```
 ### Activate virtual environment
-In your terminal run the following commands:  
+In your terminal run the following commands:
+
 ```python -m venv venv```  
 ```.\venv\Scripts\activate```
 ### Install Dependencies
