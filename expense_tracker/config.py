@@ -1,4 +1,4 @@
-"""This module provides the RP To-Do config functionality."""
+"""This module provides the Expense Tracker config functionality."""
 # expense_tracker/config.py
 
 import configparser
