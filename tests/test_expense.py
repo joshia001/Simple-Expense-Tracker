@@ -30,18 +30,40 @@ test_data1 = {
     "expense": {
         "Description": "MSY Technology.",
         "Amount": 350.0,
-        "Category": "General/Unassigned",
-        "ID": 2,
+        # "Category": "General/Unassigned",
+        # "ID": 2,
     },
 }
 
 test_data2 = {
-    "description" : [],
-    "amount": ,
+    "description" : ["Zaatar for za habibdi"],
+    "amount": 69.69,
     "expense": {
-        "Description": ".",
-        "Amount": ,
-        "Category": "General/Unassigned",
-        "ID": 3,
+        "Description": "Zaatar for za habibdi.",
+        "Amount": 69.69,
+        # "Category": "General/Unassigned",
+        # "ID": 3,
     },
 }    
+
+@pytest.mark.parametrize(
+    "description, amount, expected",
+    [
+        pytest.param(
+            test_data1["description"],
+            test_data1['amount'],
+            (test_data1["expense"], SUCCESS),
+        ),
+        pytest.param(
+            test_data2["description"],
+            test_data2['amount'],
+            (test_data2["expense"], SUCCESS),
+        )
+    ]
+)
+def test_add(mock_json_file, description, amount, expected):
+    expenser = tracker.Expenser(mock_json_file)
+    assert expenser.add(description, amount) == expected
+    read = expenser._db_handler.read_expenses()
+    assert len(read.expense_list) == 2
+    
