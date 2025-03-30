@@ -4,7 +4,7 @@
 from pathlib import Path
 from typing import Optional
 
-import typer
+import typer # type: ignore
 
 from expense_tracker import ERRORS, __app_name__, __version__, config, database
 

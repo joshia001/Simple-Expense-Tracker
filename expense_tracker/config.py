@@ -4,7 +4,7 @@
 import configparser
 from pathlib import Path
 
-import typer
+import typer # type: ignore
 
 from expense_tracker import (
     DB_WRITE_ERROR, DIR_ERROR, FILE_ERROR, SUCCESS, __app_name__
