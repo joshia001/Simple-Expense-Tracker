@@ -5,7 +5,7 @@ import configparser
 import json
 from pathlib import Path
 from typing import Any, Dict, List, NamedTuple
-
+from dataclasses import dataclass
 from expense_tracker import DB_READ_ERROR, DB_WRITE_ERROR, JSON_ERROR, SUCCESS
 
 DEFAULT_DB_FILE_PATH = Path.home().joinpath(
@@ -26,7 +26,8 @@ def init_database(db_path: Path) -> int:
     except OSError:
         return DB_WRITE_ERROR
     
-class DBResponse(NamedTuple):
+@dataclass
+class DBResponse:
     expense_list: List[Dict[str, Any]]
     error: int
     
