@@ -55,6 +55,26 @@ def get_expenser() -> tracker.Expenser:
         )
         raise typer.Exit(1)
 
+@app.command()
+def add(
+    description: List[str] = typer.Argument(...),
+    amount: float = typer.Option(0, "--amount", "-a", min = 0),
+) -> None:
+    """Add a new expense with a DESCRIPTION."""
+    tracker = get_expenser()
+    todo, error = tracker.add(description, amount)
+    if error:
+        typer.secho(
+            f'Adding expense failed with "{ERRORS[error]}"', fg=typer.colors.RED
+        )
+        raise typer.Exit(1)
+    else:
+        typer.secho(
+            f"""to-do: "{todo['Description']}" was added """
+            f"""with amount: {amount}""",
+            fg=typer.colors.GREEN,
+        )
+
 def _version_callback(value: bool) -> None:
     if value:
         typer.echo(f"{__app_name__} v{__version__}")
