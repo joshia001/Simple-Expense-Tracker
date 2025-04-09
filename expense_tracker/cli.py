@@ -104,6 +104,51 @@ def list_all() -> None:
         )
     typer.secho("-" * len(headers) + "\n", fg=typer.colors.BLUE)
 
+@app.command()
+def remove(
+    items_to_remove: List[str] = typer.Argument(...)
+) -> None: 
+    """Removes an item from the expense tracker"""
+
+    tracker = get_expenser()
+
+    removed_items = []
+
+    for item in items_to_remove:
+
+        try:
+            tracker.remove(item)
+            removed_items.append(item)
+        except Exception as e:
+            pass
+            
+        
+    if removed_items:
+        removed_items_string = ", ".join(removed_items)
+        typer.secho(
+            f"items {removed_items_string} were removed ",
+            fg=typer.colors.GREEN,
+        )
+    else:
+          typer.secho(
+            f"No items matching {", ".join(items_to_remove)} found",
+            fg=typer.colors.RED,
+        )
+
+
+@app.command()
+def list() -> None: 
+
+    tracker = get_expenser()
+
+    list_items = tracker.get_items()
+
+    typer.secho(
+            f"items {list_items} in expense",
+            fg=typer.colors.GREEN,
+        )
+
+
 def _version_callback(value: bool) -> None:
     if value:
         typer.echo(f"{__app_name__} v{__version__}")
