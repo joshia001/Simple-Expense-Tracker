@@ -32,3 +32,5 @@ class Expenser:
         return CurrentExpense(expense, write.error)
     def get_expense_list(self) -> List[Dict[str, Any]]:
         """Return the current expense list."""
+        read = self._db_handler.read_expenses()
+        return read.expense_list
