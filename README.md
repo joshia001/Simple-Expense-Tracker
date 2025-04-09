@@ -2,8 +2,8 @@
 A simple command-line interface app to track daily expenses. 
 
 ## Features
-- Add new expenses (TODO)
-- View a list of expenses (TODO)
+- Add new expenses
+- View a list of expenses
 - Show total expenses (TODO)
 - Filter by category (TODO)
 

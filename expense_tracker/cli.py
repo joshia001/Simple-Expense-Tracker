@@ -88,8 +88,8 @@ def list_all() -> None:
     typer.secho("\nexpense list:\n", fg= typer.colors.BLUE, bold = True)
     columns = (
         "ID. ",
-        "| Description",
-        "| Amount"
+        "| Amount    ",
+        "| Description"
     )
     headers = "".join(columns)
     typer.secho(headers, fg=typer.colors.BLUE, bold=True)
@@ -98,9 +98,12 @@ def list_all() -> None:
         desc, amount = expense.values()
         typer.secho(
             f"{id}{(len(columns[0])-len(str(id))) * ' '}"
-            f"| {desc}"
-            f"| ({amount}){(len)}"
+            f"| {amount}{(len(columns[1]) - len(str(amount))-2) * ' '}"
+            f"| {desc}",
+            fg=typer.colors.BLUE,
         )
+    typer.secho("-" * len(headers) + "\n", fg=typer.colors.BLUE)
+
 def _version_callback(value: bool) -> None:
     if value:
         typer.echo(f"{__app_name__} v{__version__}")
