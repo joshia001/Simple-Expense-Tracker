@@ -68,13 +68,39 @@ def add(
             f'Adding expense failed with "{ERRORS[error]}"', fg=typer.colors.RED
         )
         raise typer.Exit(1)
-    else:
-        typer.secho(
-            f"""to-do: "{todo['Description']}" was added """
-            f"""with amount: {amount}""",
-            fg=typer.colors.GREEN,
-        )
+    
+    typer.secho(
+        f"""to-do: "{todo['Description']}" was added """
+        f"""with amount: {amount}""",
+        fg=typer.colors.GREEN,
+    )
 
+@app.command(name='list')
+def list_all() -> None:
+    """List all expenses"""
+    tracker = get_expenser()
+    expense_list = tracker.get_expense_list()
+    if len(expense_list) == 0:
+        typer.secho(
+            "There are no tasks in the expense list yet", fg = typer.colors.RED
+        )
+        raise typer.Exit()
+    typer.secho("\nexpense list:\n", fg= typer.colors.BLUE, bold = True)
+    columns = (
+        "ID. ",
+        "| Description",
+        "| Amount"
+    )
+    headers = "".join(columns)
+    typer.secho(headers, fg=typer.colors.BLUE, bold=True)
+    typer.secho("-" * len(headers), fg=typer.colors.BLUE)
+    for id, expense in enumerate(expense_list, 1):
+        desc, amount = expense.values()
+        typer.secho(
+            f"{id}{(len(columns[0])-len(str(id))) * ' '}"
+            f"| {desc}"
+            f"| ({amount}){(len)}"
+        )
 def _version_callback(value: bool) -> None:
     if value:
         typer.echo(f"{__app_name__} v{__version__}")

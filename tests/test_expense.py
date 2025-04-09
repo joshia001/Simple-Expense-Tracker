@@ -1,5 +1,6 @@
 # tests/test_expense.py
 import json
+from pathlib import Path
 
 import pytest
 from typer.testing import CliRunner
@@ -17,7 +18,7 @@ def test_version():
     assert f"{__app_name__} v{__version__}\n" in result.stdout
 
 @pytest.fixture
-def mock_json_file(tmp_path):
+def mock_json_file(tmp_path: Path):
     expense = [{"Description":"Pay for Habibti", "Amount": 300.0, "Category": "General/Unassigned", "ID": 1}] # Excluded date for later date/time module use,Added amount as double for later arithmetic, included category as string (MAY REQUIRE CHANGE OF TYPE TO ENUM)
     db_file = tmp_path / "expense.json"
     with db_file.open("w") as db:

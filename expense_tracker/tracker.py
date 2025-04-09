@@ -30,5 +30,7 @@ class Expenser:
         read.expense_list.append(expense)
         write = self._db_handler.write_expenses(read.expense_list)
         return CurrentExpense(expense, write.error)
-        def get_todo_list(self) -> List[Dict[str, Any]]:
-            """Return the current expense list."""
+    def get_expense_list(self) -> List[Dict[str, Any]]:
+        """Return the current expense list."""
+        read = self._db_handler.read_expenses()
+        return read.expense_list
